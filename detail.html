@@ -3,30 +3,43 @@
 <head>
     <meta charset="utf-8" />
     <title>Task Manager</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/style.css">
 </head>
 
 <body ng-app="appTasks">
-    <div>
+    <div class="page-header">
         <h1>Task Manager</h1>
     </div>
-    <form>
+    <div class="container col-md-4 col-md-offset-4">
+      <form>
         <h3>Edit Task</h3>
-        <div>
-            <input type="text" placeholder="Task" ng-model="task.name"
-            value="{{task.name}}"></input>
+        <div class="has-feedback">
+            <input type="text" class="form-control" placeholder="Task" ng-model="task.name"
+              value="{{task.name}}"></input>
+            <span class="glyphicon glyphicon-tasks form-control-feedback"></span>
         </div>
         <div>
-            <input type="text" placeholder="Priority" ng-model="task.priority"
-            value="{{task.priority}}"></input>
+          <span class="glyphicon glyphicon-time"></span>&nbsp;<span class="lead priority">Choose priority</span>
+          <label class="radio-inline">
+            <input type="radio" ng-model="task.priority" value="Low">Low
+          </label>
+          <label class="radio-inline">
+            <input type="radio" ng-model="task.priority" value="Normal">Normal
+          </label>
+          <label class="radio-inline">
+            <input type="radio" ng-model="task.priority" value="High">High
+          </label>
         </div>
-        <div>
-            <button type="submit">Update</button>
-            <button type="submit">Remove</button>
+        <div class="text-center editBtn">
+            <button class="btn btn-success btn-sm">Update</button>
+            <button class="btn btn-danger btn-sm">Remove</button>
         </div>
     </form>
     <div>
         <a href="#">Return</a>
     </div>
+  </div>
 </body>
 
 </html>

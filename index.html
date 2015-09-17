@@ -3,34 +3,49 @@
 <head>
     <meta charset="utf-8" />
     <title>Task manager</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/style.css">
 </head>
 
 <body ng-app="appTasks">
-    <div>
+    <div class="page-header">
         <h1>Task Manager</h1>
     </div>
-    <form>
+    <div class="container col-md-4 col-md-offset-4">
+      <form>
         <h3>New task</h3>
-        <div>
-            <input type="text" placeholder="Task" ng-model="task.name"></input>
+        <div class="has-feedback">
+            <input type="text" class="form-control" placeholder="Task" ng-model="task.name"></input>
+            <span class="glyphicon glyphicon-tasks form-control-feedback"></span>
         </div>
         <div>
-            <input type="text" placeholder="Priority" ng-model="task.priority"></input>
+          <span class="glyphicon glyphicon-time"></span>&nbsp;<span class="lead priority">Choose priority</span>
+          <label class="radio-inline">
+            <input type="radio" ng-model="task.priority" value="Low">Low
+          </label>
+          <label class="radio-inline">
+            <input type="radio" ng-model="task.priority" value="Normal">Normal
+          </label>
+          <label class="radio-inline">
+            <input type="radio" ng-model="task.priority" value="High">High
+          </label>
         </div>
-        <button type="submit">Add</button>
+        <button type="submit" class="btn btn-success">Add</button>
     </form>
-    <div>
+    <div class="todolist bg-info">
       <h4>Registered Tasks</h4>
-      <div>
-        <span>+ -</span>
-        {{priority}}
+      <div class="item">
+        <span class="glyphicon glyphicon-circle-arrow-up"></span>
+        <span class="glyphicon glyphicon-circle-arrow-down"></span>
+        {{task.priority}} |
         <span>
           <a href="#">{{task.name}}</a>
-          <a href="#">Edit</a>
-          <a href="#">Remove</a>
+          <span class="glyphicon glyphicon-edit text-warning"></span>
+          <span class="glyphicon glyphicon-remove text-danger"></span>
         </span>
       </div>
     </div>
+  </div>
 </body>
 
 </html>
