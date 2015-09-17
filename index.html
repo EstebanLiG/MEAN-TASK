@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task manager</title>
+</head>
+
+<body ng-app="appTasks">
+    <div>
+        <h1>Task Manager</h1>
+    </div>
+    <form>
+        <h3>New task</h3>
+        <div>
+            <input type="text" placeholder="Task" ng-model="task.name"></input>
+        </div>
+        <div>
+            <input type="text" placeholder="Priority" ng-model="task.priority"></input>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+    <div>
+      <h4>Registered Tasks</h4>
+      <div>
+        <span>+ -</span>
+        {{priority}}
+        <span>
+          <a href="#">{{task.name}}</a>
+          <a href="#">Edit</a>
+          <a href="#">Remove</a>
+        </span>
+      </div>
+    </div>
+</body>
+
+</html>
