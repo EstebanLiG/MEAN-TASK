@@ -28,10 +28,16 @@ angular.module('appTasks', ['ui.router'])
       return $http.get('/tasks')
       .success(function(data){
         angular.copy(data, common.tasks);//Deep-copy
-        common.tasks = data;
         return common.tasks;
       });
-    }
+    };
+
+    common.add = function(task){
+      return $http.post('/task', task)
+      .success(function(task){
+        common.tasks.push(task);
+      });
+    };
 
     return common;
   })
@@ -45,7 +51,7 @@ angular.module('appTasks', ['ui.router'])
     $scope.priorities = ['Low','Normal','High'];
 
     $scope.add = function(){
-      $scope.tasks.push({
+      common.add({
         name: $scope.task.name,
         priority: parseInt($scope.task.priority)
       });
