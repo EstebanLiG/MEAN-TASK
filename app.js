@@ -12,9 +12,30 @@ angular.module('appTasks', ['ui.router'])
       });
       $urlRouterProvider.otherwise('new');
   })
-  .controller('ctrlNew', function($scope){
+  .factory('common', function(){
+    var common = {};
+
+    common.tasks = [{
+      name: 'Programming JS',
+      priority: 2
+    },{
+      name: 'Programming adroid app',
+      priority: 1
+    },{
+      name: 'Study mongoDB',
+      priority: 0
+    }];
+
+    common.remove = function(task){
+      var index = common.tasks.indexOf(task);
+      common.tasks.splice(index, 1);
+    };
+
+    return common;
+  })
+  .controller('ctrlNew', function($scope, common){
     $scope.task = {};
-    $scope.tasks = [];
+    $scope.tasks = common.tasks;
 
     $scope.priorities = ['Low','Normal','High'];
 
@@ -36,8 +57,7 @@ angular.module('appTasks', ['ui.router'])
     };
 
     $scope.remove = function(task){
-      var index = $scope.tasks.indexOf(task);
-      $scope.tasks.splice(index, 1);
+      common.remove(task);
     };
 
   });
