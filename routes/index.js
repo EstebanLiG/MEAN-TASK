@@ -30,4 +30,18 @@ router.post('/task', function(req, res, next){
   });
 });
 
+/* PUT Update task */
+router.put('/task/:id', function(req, res){
+  Tasks.findById(req.params.id, function(err, task){
+    task.name = req.body.name;
+    task.priority = req.body.priority;
+    task.save(function(err){
+      if(err){
+        res.send(err);
+      }
+      res.json(task);
+    });
+  });
+});
+
 module.exports = router;
