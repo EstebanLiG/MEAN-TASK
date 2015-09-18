@@ -1,0 +1,27 @@
+<form>
+  <h3>Edit Task</h3>
+  <div class="has-feedback">
+    <input type="text" class="form-control" placeholder="Task" ng-model="task.name"
+      value="{{task.name}}"></input>
+    <span class="glyphicon glyphicon-tasks form-control-feedback"></span>
+  </div>
+  <div>
+    <span class="glyphicon glyphicon-time"></span>&nbsp;<span class="lead priority">Choose priority</span>
+    <label class="radio-inline">
+      <input type="radio" ng-model="task.priority" value="Low">Low
+    </label>
+    <label class="radio-inline">
+      <input type="radio" ng-model="task.priority" value="Normal">Normal
+    </label>
+    <label class="radio-inline">
+      <input type="radio" ng-model="task.priority" value="High">High
+    </label>
+  </div>
+  <div class="text-center editBtn">
+    <button class="btn btn-success btn-sm">Update</button>
+    <button class="btn btn-danger btn-sm">Remove</button>
+  </div>
+</form>
+<div>
+    <a ui.sref="new">Return</a>
+</div>

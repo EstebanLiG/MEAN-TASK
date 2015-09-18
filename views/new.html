@@ -1,0 +1,33 @@
+<form>
+  <h3>New task</h3>
+  <div class="has-feedback">
+    <input type="text" class="form-control" placeholder="Task" ng-model="task.name"></input>
+    <span class="glyphicon glyphicon-tasks form-control-feedback"></span>
+  </div>
+  <div>
+    <span class="glyphicon glyphicon-time"></span>&nbsp;<span class="lead priority">Choose priority</span>
+    <label class="radio-inline">
+      <input type="radio" ng-model="task.priority" value="Low">Low
+    </label>
+    <label class="radio-inline">
+      <input type="radio" ng-model="task.priority" value="Normal">Normal
+    </label>
+    <label class="radio-inline">
+      <input type="radio" ng-model="task.priority" value="High">High
+    </label>
+  </div>
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
+<div class="todolist bg-info">
+<h4>Registered Tasks</h4>
+<div class="item">
+  <span class="glyphicon glyphicon-circle-arrow-up"></span>
+  <span class="glyphicon glyphicon-circle-arrow-down"></span>
+  {{task.priority}} |
+  <span>
+    <a href="#">{{task.name}}</a>
+    <span class="glyphicon glyphicon-edit text-warning" ui-sref="edit({id:5})"></span>
+    <span class="glyphicon glyphicon-remove text-danger"></span>
+  </span>
+</div>
+</div>
