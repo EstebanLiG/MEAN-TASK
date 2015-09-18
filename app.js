@@ -29,9 +29,15 @@ angular.module('appTasks', ['ui.router'])
 
     $scope.upPriority = function(task){
       task.priority +=1;
-    }
+    };
+
     $scope.downPriority = function(task){
       task.priority -=1;
-    }
+    };
+
+    $scope.remove = function(task){
+      var index = $scope.tasks.indexOf(task);
+      $scope.tasks.splice(index, 1);
+    };
 
   });
