@@ -21,8 +21,8 @@
 <div class="todolist bg-info">
   <h4>Registered Tasks</h4>
   <div class="item" ng-repeat="task in tasks | orderBy:'-priority'">
-    <span class="glyphicon glyphicon-circle-arrow-up"></span>
-    <span class="glyphicon glyphicon-circle-arrow-down"></span>
+    <span class="glyphicon glyphicon-circle-arrow-up" ng-hide="task.priority==2" ng-click="upPriority(task)"></span>
+    <span class="glyphicon glyphicon-circle-arrow-down" ng-hide="task.priority==0" ng-click="downPriority(task)"></span>
     <span class="priority">Priority: {{priorities[task.priority]}}</span> |
     <span>
       <a href="#">Task: {{task.name}}</a>

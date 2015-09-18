@@ -16,15 +16,22 @@ angular.module('appTasks', ['ui.router'])
     $scope.task = {};
     $scope.tasks = [];
 
-    $scope.priorities = ['Low','Normal', 'High'];
+    $scope.priorities = ['Low','Normal','High'];
 
     $scope.add = function(){
       $scope.tasks.push({
         name: $scope.task.name,
         priority: parseInt($scope.task.priority)
       });
-
       $scope.task.name = '';
       $scope.task.priority = '';
     };
+
+    $scope.upPriority = function(task){
+      task.priority +=1;
+    }
+    $scope.downPriority = function(task){
+      task.priority -=1;
+    }
+
   });
