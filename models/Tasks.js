@@ -5,4 +5,4 @@ var TasksSchema = new mongoose.Schema({
   priority: Number
 });
 
-mongoose.model('Tasks', TaskSchema);
+mongoose.model('Tasks', TasksSchema);
