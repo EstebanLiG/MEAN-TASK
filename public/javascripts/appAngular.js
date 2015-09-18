@@ -13,20 +13,9 @@ angular.module('appTasks', ['ui.router'])
       });
       $urlRouterProvider.otherwise('new');
   })
-  .factory('common', function(){
+  .factory('common', function($http){
     var common = {};
-
-    common.tasks = [{
-      name: 'Programming JS',
-      priority: 2
-    },{
-      name: 'Programming adroid app',
-      priority: 1
-    },{
-      name: 'Study mongoDB',
-      priority: 0
-    }];
-
+    common.tasks = [];
     common.task = {};
 
     common.remove = function(task){
@@ -34,10 +23,23 @@ angular.module('appTasks', ['ui.router'])
       common.tasks.splice(index, 1);
     };
 
+    //remote methods
+    common.getAll = function(){
+      return $http.get('/tasks')
+      .success(function(data){
+        angular.copy(data, common.tasks);//Deep-copy
+        common.tasks = data;
+        return common.tasks;
+      });
+    }
+
     return common;
   })
   .controller('ctrlNew', function($scope, $state, common){
     $scope.task = {};
+
+    common.getAll();
+
     $scope.tasks = common.tasks;
 
     $scope.priorities = ['Low','Normal','High'];
