@@ -19,4 +19,15 @@ router.get('/tasks', function(req, res, next){
   });
 });
 
+/* POST Add task */
+router.post('/task', function(req, res, next){
+  var task = new Tasks(req.body);
+  task.save(function(err, task){
+    if(err){
+      return next(err);
+    }
+    res.json(task);
+  });
+});
+
 module.exports = router;
