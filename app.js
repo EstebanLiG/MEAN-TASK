@@ -16,6 +16,8 @@ angular.module('appTasks', ['ui.router'])
     $scope.task = {};
     $scope.tasks = [];
 
+    $scope.priorities = ['Low','Normal', 'High'];
+
     $scope.add = function(){
       $scope.tasks.push({
         name: $scope.task.name,
