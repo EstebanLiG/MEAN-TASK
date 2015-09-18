@@ -1,86 +1,60 @@
-angular.module('appTasks', ['ui.router'])
-  .config(function($stateProvider, $urlRouterProvider){
-    $stateProvider
-      .state('new', {
-        url: '/new',
-        templateUrl: 'new.html',
-        controller: 'ctrlNew'
-      })
-      .state('edit', {
-        url: '/edit/{id}',
-        templateUrl: 'edit.html',
-        controller: 'ctrlEdit'
-      });
-      $urlRouterProvider.otherwise('new');
-  })
-  .factory('common', function(){
-    var common = {};
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
-    common.tasks = [{
-      name: 'Programming JS',
-      priority: 2
-    },{
-      name: 'Programming adroid app',
-      priority: 1
-    },{
-      name: 'Study mongoDB',
-      priority: 0
-    }];
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
-    common.task = {};
+var app = express();
 
-    common.remove = function(task){
-      var index = common.tasks.indexOf(task);
-      common.tasks.splice(index, 1);
-    };
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-    return common;
-  })
-  .controller('ctrlNew', function($scope, $state, common){
-    $scope.task = {};
-    $scope.tasks = common.tasks;
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-    $scope.priorities = ['Low','Normal','High'];
+app.use('/', routes);
+app.use('/users', users);
 
-    $scope.add = function(){
-      $scope.tasks.push({
-        name: $scope.task.name,
-        priority: parseInt($scope.task.priority)
-      });
-      $scope.task.name = '';
-      $scope.task.priority = '';
-    };
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-    $scope.upPriority = function(task){
-      task.priority +=1;
-    };
+// error handlers
 
-    $scope.downPriority = function(task){
-      task.priority -=1;
-    };
-
-    $scope.remove = function(task){
-      common.remove(task);
-    };
-
-    $scope.processObject = function(task){
-      common.task = task;
-      $state.go('edit');
-    };
-
-  })
-  .controller('ctrlEdit', function($scope, $state, common){
-    $scope.task = common.task;
-
-    $scope.update = function(){
-      var index = common.tasks.indexOf(common.task);
-      common.tasks[index] = $scope.task;
-      $state.go('new');
-    };
-
-    $scope.remove = function(){
-      common.remove($scope.task);
-      $state.go('new');
-    };
-
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
   });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
+
+
+module.exports = app;
