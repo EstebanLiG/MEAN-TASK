@@ -18,11 +18,6 @@ angular.module('appTasks', ['ui.router'])
     common.tasks = [];
     common.task = {};
 
-    common.remove = function(task){
-      var index = common.tasks.indexOf(task);
-      common.tasks.splice(index, 1);
-    };
-
     //remote methods
     common.getAll = function(){
       return $http.get('/tasks')
@@ -44,6 +39,14 @@ angular.module('appTasks', ['ui.router'])
       .success(function(data){
         var index = common.tasks.indexOf(task);
         common.tasks[index] = data;
+      });
+    };
+
+    common.delete = function(task){
+      return $http.delete('/task/' + task._id)
+      .success(function(){
+        var index = common.tasks.indexOf(task);
+        common.tasks.splice(index, 1);
       });
     };
 
@@ -76,7 +79,7 @@ angular.module('appTasks', ['ui.router'])
     };
 
     $scope.remove = function(task){
-      common.remove(task);
+      common.delete(task);
     };
 
     $scope.processObject = function(task){
@@ -94,8 +97,7 @@ angular.module('appTasks', ['ui.router'])
     };
 
     $scope.remove = function(){
-      common.remove($scope.task);
+      common.delete($scope.task);
       $state.go('new');
     };
-
   });
