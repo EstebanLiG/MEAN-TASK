@@ -39,6 +39,14 @@ angular.module('appTasks', ['ui.router'])
       });
     };
 
+    common.update = function(task){
+      return $http.put('/task/'+task._id, task)
+      .success(function(data){
+        var index = common.tasks.indexOf(task);
+        common.tasks[index] = data;
+      });
+    };
+
     return common;
   })
   .controller('ctrlNew', function($scope, $state, common){
@@ -81,8 +89,7 @@ angular.module('appTasks', ['ui.router'])
     $scope.task = common.task;
 
     $scope.update = function(){
-      var index = common.tasks.indexOf(common.task);
-      common.tasks[index] = $scope.task;
+      common.update($scope.task);
       $state.go('new');
     };
 
